@@ -11,19 +11,25 @@ const filterYearStage = function(filtYear, filtStage){
 
 const filt2014Final = filterYearStage(2014, `Final`);
 
-console.log(filt2014Final[0]);
+let task1Obj = filt2014Final[0];
 
 //(a) Home Team name for 2014 world cup final
-console.log(filt2014Final[0][`Home Team Name`])
-
+console.log(task1Obj[`Home Team Name`]);
 //(b) Away Team name for 2014 world cup final
-
+console.log(task1Obj[`Away Team Name`]);
 //(c) Home Team goals for 2014 world cup final
-
+console.log(task1Obj[`Home Team Goals`]);
 //(d) Away Team goals for 2014 world cup final
-
+console.log(task1Obj[`Away Team Goals`]);
 //(e) Winner of 2014 world cup final */
-
+const whoWon = function(gameObj){
+    if(gameObj['Home Team Goals'] > gameObj[`Away Team Goals`]){
+        return gameObj[`Home Team Name`]
+    }
+    else{return gameObj[`Away Team Name`]
+    };
+};
+console.log(whoWon(task1Obj));
 
 /* 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 Task 2: 🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀 
 Use getFinals to do the following:
@@ -33,9 +39,9 @@ Use getFinals to do the following:
 hint - you should be looking at the stage key inside of the objects
 */
 
-function getFinals(/* code here */) {
-   /* code here */
-}
+function getFinals(data) {
+    return data.filter(match => match.Stage === `Final`);
+};
 
 
 
@@ -45,8 +51,10 @@ Use the higher-order function called getYears to do the following:
 2. Receive a callback function getFinals from task 2 
 3. Return an array called years containing all of the years in the getFinals data set*/
 
-function getYears(/* code here */) {
-    /* code here */
+function getYears(data, cBGetFinals) {
+    let years = [];
+    years = cBGetFinals(data).map(matchObj => matchObj[`Year`]);
+    return years;
 }
 
 
@@ -58,9 +66,19 @@ Use the higher-order function getWinners to do the following:
 3. Determines the winner (home or away) of each `finals` game. 
 4. Returns the names of all winning countries in an array called `winners` */ 
 
-function getWinners(/* code here */) {
-    /* code here */
-}
+function getWinners(data, cBGetFinals) {
+    let winners = [];
+    winners = cBGetFinals(data).map(function(matchObj){
+        if(matchObj[`Home Team Goals`] > matchObj[`Away Team Goals`]){
+            return matchObj[`Home Team Name`]}
+            else{
+                return matchObj[`Away Team Name`]
+            };
+        })
+    return winners;
+};
+
+// console.log(getWinners(fifaData, getFinals));
 
 
 
