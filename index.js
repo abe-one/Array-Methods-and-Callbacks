@@ -92,9 +92,19 @@ Use the higher-order function getWinnersByYear to do the following:
 hint: the strings returned need to exactly match the string in step 4.
  */
 
-function getWinnersByYear(/* code here */) {
-    /* code here */
-}
+// The required callbacks were a bit weird, didn't understand the reasoning for excluding the function from Task2👀👀👀👀👀👀👀👀👀👀👀
+
+function getWinnersByYear(data, cBGetYears, cBGetWinners) {
+    const missingCallback = function getFinals(array) {
+        return data.filter(match => match.Stage === `Final`);
+    };
+    let yearsArrayed = getYears(data, missingCallback);
+    let winnersArrayed = getWinners(data, missingCallback);
+    let winningMessage = yearsArrayed.map((year, index) => `In ${year}, ${winnersArrayed[index]} won the world cup!`);
+    return winningMessage;
+};
+
+// IDEA pass function arguments w/ built in arguments
 
 
 
@@ -108,10 +118,20 @@ Use the higher order function getAverageGoals to do the following:
  Example of invocation: getAverageGoals(getFinals(fifaData));
 */
 
-function getAverageGoals(/* code here */) {
-   /* code here */
-}
+function getAverageGoals(cBGetFinals){
+    let finalMatches = cBGetFinals;
+    // return finalMatches;
+    let avgGoals = finalMatches.reduce(function(tot, currObj){
+        return tot + currObj[`Home Team Goals`] + currObj[`Away Team Goals`]   
+    }, 0) / finalMatches.length;
+    return (Math.round(avgGoals * 100) / 100).toString();
+};
 
+console.log(getAverageGoals(getFinals(fifaData)));
+
+// let prat = [2, 4, 5, 5, 5, 330];
+
+// console.log(prat.reduce((acc, curval) => (acc + curval)) / prat.length);
 
 
 
