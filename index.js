@@ -78,7 +78,20 @@ function getWinners(data, cBGetFinals) {
     return winners;
 };
 
-// console.log(getWinners(fifaData, getFinals));
+function getTrueWinners(data, cBGetFinals) {
+    let winners = [];
+    winners = cBGetFinals(data).map(function(matchObj){
+        if(matchObj[`Home Team Goals`] > matchObj[`Away Team Goals`]){
+            return matchObj[`Home Team Name`]
+        }else if(matchObj[`Home Team Goals`] < matchObj[`Away Team Goals`]){
+                return matchObj[`Away Team Name`]
+        }else{return matchObj[`Win conditions`].split(" ")[0]
+        };
+        })
+    return winners;
+};
+
+console.log(getWinners(fifaData, getFinals));
 
 
 
@@ -128,10 +141,6 @@ function getAverageGoals(cBGetFinals){
 };
 
 console.log(getAverageGoals(getFinals(fifaData)));
-
-// let prat = [2, 4, 5, 5, 5, 330];
-
-// console.log(prat.reduce((acc, curval) => (acc + curval)) / prat.length);
 
 
 
